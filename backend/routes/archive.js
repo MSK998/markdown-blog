@@ -10,6 +10,6 @@ router.post("/", archiveController.archiveArticle);
 router.get("/", archiveController.getAllArchivedArticles);
 
 // Get an archived article
-router.get("/:id", archiveController.getArchivedArticle);
+router.get("/:slug", archiveController.getArchivedArticle);
 
 module.exports = router;

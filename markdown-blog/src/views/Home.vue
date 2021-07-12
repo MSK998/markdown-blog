@@ -5,6 +5,11 @@
     <div v-for="article in articles" :key="article.id">
       <article-card :article="article" />
     </div>
+    <div id="buttons">
+      <router-link to="/archives">
+        <button id="button">Archives</button>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -34,5 +39,12 @@ export default {
 a {
   text-decoration: none;
   color: inherit;
+}
+#buttons{
+    text-align: center;
+    margin: 0 auto;
+}
+#button{
+    width: 30rem;
 }
 </style>

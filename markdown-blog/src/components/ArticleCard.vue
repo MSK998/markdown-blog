@@ -15,7 +15,7 @@
     </router-link>
     <div class="linkbox">
       <button class="button-warn" @click="deleteArticle">Delete</button>
-      <button @click="archiveArticle">Archive</button>
+      <button @click="archiveArticle" v-if="!article.isArchived">Archive</button>
     </div>
   </div>
 </template>

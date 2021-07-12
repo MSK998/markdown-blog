@@ -3,7 +3,8 @@
     <h1>{{ article.title }}</h1>
     <p>{{ article.description }}</p>
     <div v-html="article.sanitisedHTML" class="blog-content"></div>
-    <div id="edit">
+    <div id="buttons">
+      <button id="button" v-if="article.isArchived" @click="unarchive">Unarchive</button>
       <router-link
         :to="{
           name: 'EditArticle',
@@ -12,7 +13,7 @@
           },
         }"
       >
-        <button id="editButton">Edit</button>
+        <button id="button">Edit</button>
       </router-link>
     </div>
   </div>
@@ -20,6 +21,7 @@
 
 <script>
 import axios from "axios";
+import router from '@/router'
 
 export default {
   name: "Article",
@@ -36,14 +38,21 @@ export default {
     console.log(response.data);
     this.article = await response.data;
   },
+
+  methods: {
+    unarchive(){
+      this.$store.dispatch('articles/archiveArticle', this.article.id)
+      router.replace('/')
+    }
+  }
 };
 </script>
 <style scoped>
-#edit{
+#buttons{
     text-align: center;
     margin: 0 auto;
 }
-#editButton{
+#button{
     width: 30rem;
 }
 </style>

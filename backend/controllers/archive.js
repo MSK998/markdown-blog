@@ -7,14 +7,14 @@ exports.getAllArchivedArticles = async (req, res, next) => {
   if (archivedArticles.length) {
     res.status(200).json(archivedArticles);
   } else {
-    res.status(404).json({
+    res.status(204).json({
       message: "No Archived Articles Found",
     });
   }
 };
 
 exports.getArchivedArticle = async (req, res, next) => {
-  const archivedArticle = await Article.findByPk(req.params.id);
+  const archivedArticle = await Article.findOne({where: { slug: req.params.slug, isArchived: true}});
   if (archivedArticle) {
     res.status(200).json(archivedArticle);
   } else {
