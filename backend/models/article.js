@@ -11,11 +11,11 @@ const markdownDb = new Sequelize(
 
 const Article = markdownDb.define("article", {
   title: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING(60),
     allowNull: false,
   },
   description: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING(200),
     allowNull: true,
   },
   markdown: {

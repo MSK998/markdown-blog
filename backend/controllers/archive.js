@@ -33,9 +33,6 @@ will archive/unarchive based on its current flag
 */
 exports.archiveArticle = async (req, res, next) => {
   const article = await Article.findOne({ where: { id: req.query.id } });
-
-  console.log(article);
-
   if (article) {
     const archivedArticle = await article.update({
       isArchived: !article.isArchived,

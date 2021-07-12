@@ -1,26 +1,76 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <nav>
+      <div class="container">
+        <router-link to="/">
+          <img src="./assets/svg/md_logo.svg" class="logo">
+        </router-link>
+        <div class="right-nav">
+          <router-link to="/"
+            ><button class="button-primary">Home</button></router-link
+          >
+          <router-link to="/new"
+            ><button class="button-primary">New</button></router-link
+          >
+        </div>
+      </div>
+    </nav>
+    <router-view />
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<style>
+nav {
+  background-color: #222;
+  min-width: 100%;
+  display: block;
+  overflow: hidden;
+}
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+.right-nav {
+  float: right;
+}
+
+.logo{
+  height: 3rem;
+}
+
+@media (max-width: 400px) {
+  nav {
+    text-align: center;
+  }
+  button {
+    width: 90%;
+  }
+  .right-nav{
+    float: unset;
   }
 }
-</script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+nav a {
+  color: white;
+  text-decoration: none;
+}
+.logo {
+  font-size: 3rem;
+  padding: 0.5rem;
+}
+.item {
+  padding: 0.666rem;
+  margin: 0 0;
+}
+.item.button {
+  padding: 9px 5px;
+}
+.item:not(.button) a:hover,
+.item a:hover::after {
+  color: #ccc;
+}
+.right-nav {
+  display: flex;
+  justify-content: center;
+  float: right;
+}
+button {
+  background-color: white;
 }
 </style>

@@ -1,7 +1,7 @@
 const Article = require("../models/article");
 
 exports.getAllArticles = async (req, res, next) => {
-  const articles = await Article.findAll({ where: { isArchived: false } });
+  const articles = await Article.findAll({ where: { isArchived: false }, order: [['createdAt', 'DESC']] });
   if (articles.length) {
     res.status(200).json(articles);
   } else {
@@ -24,12 +24,18 @@ exports.getArticleBySlug = async (req, res, next) => {
 
 exports.createArticle = async (req, res, next) => {
   if (
-    (!req.body.title && req.body.title.length < 1) ||
-    (!req.body.markdown && req.body.markdown.length < 1)
+    !req.body.title ||
+    req.body.title.length < 1 ||
+    !req.body.markdown ||
+    req.body.markdown.length < 1
   ) {
     res
       .status(400)
       .json({ message: "One or more required fields have not been filled" });
+  } else if (req.body.title.length > 60 || req.body.description.length > 200) {
+    res
+      .status(400)
+      .json({ message: "One or more required fields exceeds the limits set" });
   } else {
     const article = await Article.create({
       title: req.body.title,
@@ -55,15 +61,21 @@ exports.editArticle = async (req, res, next) => {
   });
 
   if (article) {
-    const updatedArticle = await article.update({
-      title: req.body.title,
-      description: req.body.description,
-      markdown: req.body.markdown,
-    });
+    try {
+      const updatedArticle = await article.update({
+        title: req.body.title,
+        description: req.body.description,
+        markdown: req.body.markdown,
+      });
 
-    if (updatedArticle) {
-      res.status(201).json(updatedArticle);
-    } else {
+      if (updatedArticle) {
+        res.status(201).json(updatedArticle);
+      } else {
+        res.status(400).json({
+          message: "Malformed Request - Could not process",
+        });
+      }
+    } catch {
       res.status(400).json({
         message: "Malformed Request - Could not process",
       });
