@@ -3,7 +3,7 @@
     <nav>
       <div class="container">
         <router-link to="/">
-          <img src="./assets/svg/md_logo.svg" class="logo">
+          <img src="@/assets/svg/md_logo.svg" class="logo" />
         </router-link>
         <div class="right-nav">
           <router-link to="/"
@@ -15,7 +15,9 @@
         </div>
       </div>
     </nav>
-    <router-view />
+    <div class="router">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -31,7 +33,7 @@ nav {
   float: right;
 }
 
-.logo{
+.logo {
   height: 3rem;
 }
 
@@ -42,7 +44,7 @@ nav {
   button {
     width: 90%;
   }
-  .right-nav{
+  .right-nav {
     float: unset;
   }
 }

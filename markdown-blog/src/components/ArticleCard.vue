@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <article class="card">
     <router-link
       :to="{
         name: 'Article',
@@ -14,19 +14,36 @@
       </div>
     </router-link>
     <div class="linkbox">
-      <button class="button-warn" @click="deleteArticle">Delete</button>
-      <button @click="archiveArticle" v-if="!article.isArchived">Archive</button>
+      <button-modal
+        title="Delete"
+        buttonStyle="warn"
+        modalTitle="Delete Article"
+        modalBody="Are you sure you want to delete this article?"
+        modalWarn="true"
+        @confirm="deleteArticle"
+      />
+      <button-modal
+        title="Archive"
+        buttonStyle="none"
+        modalTitle="Archive Article"
+        modalBody="Are you sure you want to archive this article?"
+        modalWarn="false"
+        @confirm="archiveArticle"
+        v-if="!article.isArchived"
+      />
     </div>
-  </div>
+  </article>
 </template>
 <script>
+import ButtonModal from "./ButtonModal.vue";
 export default {
+  components: { ButtonModal },
   props: ["article"],
   methods: {
     archiveArticle() {
       this.$store.dispatch("articles/archiveArticle", this.article.id);
     },
-    deleteArticle(){
+    deleteArticle() {
       this.$store.dispatch("articles/deleteArticle", this.article.id);
     },
   },
@@ -55,12 +72,13 @@ button {
 }
 .linkbox {
   width: 100%;
+  text-align: right;
 }
 
-a, a:hover {
+a,
+a:hover {
   text-decoration: none;
   color: inherit;
-  
 }
 </style>
 
