@@ -20,9 +20,9 @@ This mini project was completed over a weekend. Inspired by a project that I cam
 
 These are just some of the inital areas, that stick out to me, where improvements can be made.
 
-1. __Add a delete/archive confirmation modal/popup__
-    - There is no confirmation so accidentally deleting something makes it unrecoverable
-    - Another way is to add an isDeleted column which would only soft delete, similar to the archive function
+1. __Add a delete/archive confirmation modal/popup__ ✔️
+    - There is no confirmation so accidentally deleting something makes it unrecoverable ✔️
+    - Another way is to add an isDeleted column which would only soft delete, similar to the archive function ❌️
 3. __Loading spinner__
     - In production, data may take a while to come back
     - I have also made this before so it wouldn't be as big of an undertaking compared to other improvements
