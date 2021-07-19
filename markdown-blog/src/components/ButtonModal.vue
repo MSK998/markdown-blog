@@ -46,6 +46,7 @@ export default {
       this.isOpen = !this.isOpen;
     },
     confirm() {
+      this.isOpen = false;
       this.$emit("confirm");
     },
   },
