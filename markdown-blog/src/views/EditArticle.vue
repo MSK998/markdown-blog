@@ -5,7 +5,7 @@
       <loading-spinner/>
     </teleport>
 
-    <div>
+    <div v-if="!loading">
       <label for="title">Title - {{ titleChar }} characters</label>
       <input type="text" id="title" maxlength="60" v-model="title" />
 

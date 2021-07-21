@@ -1,17 +1,19 @@
 <template>
   <div class="container">
     <teleport to=".router" v-if="loading">
-      <loading-spinner/>
+      <loading-spinner />
     </teleport>
-    <h1><strong>A Basic Blog page</strong></h1>
-    <p>This is a basic blog to showcase a full stack application.</p>
-    <div v-for="article in articles" :key="article.id">
-      <article-card :article="article" />
-    </div>
-    <div id="buttons">
-      <router-link to="/archives">
-        <button id="button">Archives</button>
-      </router-link>
+    <div v-if="!loading">
+      <h1><strong>A Basic Blog page</strong></h1>
+      <p>This is a basic blog to showcase a full stack application.</p>
+      <div v-for="article in articles" :key="article.id">
+        <article-card :article="article" />
+      </div>
+      <div id="buttons">
+        <router-link to="/archives">
+          <button id="button">Archives</button>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -23,16 +25,16 @@
 import ArticleCard from "@/components/ArticleCard.vue";
 export default {
   name: "Home",
-  data(){
-    return{
-      loading: false
-    }
+  data() {
+    return {
+      loading: false,
+    };
   },
   components: { ArticleCard },
   async created() {
-    this.loading = true
+    this.loading = true;
     this.$store.dispatch("articles/getArticles");
-    this.loading = false
+    this.loading = false;
   },
   computed: {
     articles() {
@@ -50,11 +52,11 @@ a {
   text-decoration: none;
   color: inherit;
 }
-#buttons{
-    text-align: center;
-    margin: 0 auto;
+#buttons {
+  text-align: center;
+  margin: 0 auto;
 }
-#button{
-    width: 30rem;
+#button {
+  width: 30rem;
 }
 </style>
