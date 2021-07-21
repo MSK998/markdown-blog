@@ -18,25 +18,29 @@
         >Body -
         <a href="https://devhints.io/markdown">Markdown Supported</a></label
       >
-      <textarea name="markdown" id="markdown" @input="update" v-model="markdown"></textarea>
+      <textarea
+        name="markdown"
+        id="markdown"
+        @input="update"
+        v-model="markdown"
+      ></textarea>
       <button class="button-primary u-pull-right" @click="editArticle">
         Save
       </button>
     </div>
-    <div>
-      <label for="preview">Preview</label>
-      <div v-html="html" id="preview"></div>
-    </div>
+    <article-preview :html="html" />
   </div>
 </template>
 
 <script>
 import lo from "lodash";
 import marked from "marked";
-import axios from 'axios'
+import axios from "axios";
+import ArticlePreview from '@/components/ArticlePreview.vue'
 
 export default {
   name: "EditArticle",
+  components: { ArticlePreview },
   data() {
     return {
       id: "",
@@ -51,7 +55,7 @@ export default {
     axios
       .get(process.env.VUE_APP_API + "/articles/" + this.$route.params.slug)
       .then((res) => {
-        console.log(res)
+        console.log(res);
         this.id = res.data.id;
         this.title = res.data.title;
         this.description = res.data.description;
@@ -77,7 +81,6 @@ export default {
     },
   },
 
-
   computed: {
     html() {
       return marked(this.markdown);
@@ -89,8 +92,6 @@ export default {
       return 200 - this.description.length;
     },
   },
-
-
 };
 </script>
 

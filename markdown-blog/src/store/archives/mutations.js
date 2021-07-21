@@ -2,12 +2,12 @@ export const mutations = {
     getArchives(state, archives){
         state.archives = archives
     },
-    removeArchive(state, archive) {
-        state.archive.splice(
-          state.archive.findIndex((x) => x.id === archive),
+
+    removeArchive(state, id) {
+        state.archives.splice(
+          state.archives.findIndex((x) => x.id === id),
           1
         );
-    
-        state.archive = [...state.archive];
+        state.archives = [...state.archives];
       },
 }

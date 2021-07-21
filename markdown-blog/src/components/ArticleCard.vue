@@ -13,7 +13,10 @@
         <p>{{ article.description }}</p>
       </div>
     </router-link>
+
     <div class="linkbox">
+
+
       <button-modal
         title="Delete"
         buttonStyle="warn"
@@ -22,6 +25,8 @@
         modalWarn="true"
         @confirm="deleteArticle"
       />
+
+
       <button-modal
         title="Archive"
         buttonStyle="none"
@@ -31,15 +36,31 @@
         @confirm="archiveArticle"
         v-if="!article.isArchived"
       />
+
+
+      <button-modal
+        title="Unarchive"
+        buttonStyle="none"
+        modalTitle="Unarchive Article"
+        modalBody="Are you sure you want to unarchive this article?"
+        modalWarn="false"
+        @confirm="unarchiveArticle"
+        v-if="article.isArchived"
+      />
+      
     </div>
   </article>
 </template>
 <script>
 import ButtonModal from "./ButtonModal.vue";
+
 export default {
   components: { ButtonModal },
   props: ["article"],
   methods: {
+    unarchiveArticle() {
+      this.$store.dispatch("archives/unarchiveArticle", this.article.id);
+    },
     archiveArticle() {
       this.$store.dispatch("articles/archiveArticle", this.article.id);
     },

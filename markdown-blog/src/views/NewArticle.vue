@@ -23,19 +23,18 @@
         Create
       </button>
     </div>
-    <div>
-      <label for="preview">Preview</label>
-      <div v-html="html" id="preview"></div>
-    </div>
+    <article-preview :html="html"/>
   </div>
 </template>
 <script>
 import lo from "lodash";
 import marked from "marked";
+import ArticlePreview from "@/components/ArticlePreview.vue"
 
 export default {
   name: "NewArticle",
   props: [],
+  components: { ArticlePreview },
   data() {
     return {
       title: "",
