@@ -23,9 +23,9 @@ These are just some of the inital areas, that stick out to me, where improvement
 1. __Add a delete/archive confirmation modal/popup__ ✔️
     - There is no confirmation so accidentally deleting something makes it unrecoverable ✔️
     - Another way is to add an isDeleted column which would only soft delete, similar to the archive function ❌️
-3. __Loading spinner__
-    - In production, data may take a while to come back
-    - I have also made this before so it wouldn't be as big of an undertaking compared to other improvements
+3. __Loading spinner__ ✔️
+    - In production, data may take a while to come back ✔️
+    - I have also made this before so it wouldn't be as big of an undertaking compared to other improvements ✔️
 4. __Add pagination__
     - This would improve loadiing time by reducing the amount of data being transferred
 5. __Streamline frontend to utilise a more component based structure__
