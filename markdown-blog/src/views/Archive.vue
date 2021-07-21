@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+
+    <teleport to=".router" v-if="loading">
+      <loading-spinner/>
+    </teleport>
+    
     <h1><strong>Archived Pages</strong></h1>
     <p>
       Archived pages that may either be outdated information, or posts that
@@ -13,11 +18,20 @@
 
 <script>
 import ArticleCard from "@/components/ArticleCard.vue";
+import LoadingSpinner from "@/components/LoadingSpinner"
+
 export default {
   name: "Home",
-  components: { ArticleCard },
+  components: { ArticleCard , LoadingSpinner},
+  data(){
+    return{
+      loading: false
+    }
+  },
   async created() {
-    this.$store.dispatch("archives/getArchives");
+     this.loading = await true
+    await this.$store.dispatch("archives/getArchives");
+     this.loading = await false
   },
   computed: {
     archives() {

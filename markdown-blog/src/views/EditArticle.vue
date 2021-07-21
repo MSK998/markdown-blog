@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+
+    <teleport to=".router" v-if="loading">
+      <loading-spinner/>
+    </teleport>
+
     <div>
       <label for="title">Title - {{ titleChar }} characters</label>
       <input type="text" id="title" maxlength="60" v-model="title" />
@@ -48,10 +53,12 @@ export default {
       description: "",
       markdown: "",
       preview: "",
+      loading: false
     };
   },
 
   async created() {
+    this.loading = false
     axios
       .get(process.env.VUE_APP_API + "/articles/" + this.$route.params.slug)
       .then((res) => {
@@ -64,6 +71,8 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+
+      this.loading = false
   },
 
   methods: {

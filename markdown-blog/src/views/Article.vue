@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+
+    <teleport to=".router" v-if="loading">
+      <loading-spinner/>
+    </teleport>
+
     <h1>{{ article.title }}</h1>
     <p>{{ article.description }}</p>
     <div v-html="article.sanitisedHTML" class="blog-content"></div>
@@ -28,15 +33,17 @@ export default {
   data() {
     return {
       article: {},
-      artSlug: this.$route.params.slug
+      artSlug: this.$route.params.slug,
+      loading: false
     };
   },
   async created() {
+    this.loading = true
     const response = await axios.get(
       process.env.VUE_APP_API + "/articles/" + this.$route.params.slug
     );
-    console.log(response.data);
     this.article = await response.data;
+    this.loading = false
   },
 
   methods: {

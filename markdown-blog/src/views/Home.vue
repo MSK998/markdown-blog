@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+    <teleport to=".router" v-if="loading">
+      <loading-spinner/>
+    </teleport>
     <h1><strong>A Basic Blog page</strong></h1>
     <p>This is a basic blog to showcase a full stack application.</p>
     <div v-for="article in articles" :key="article.id">
@@ -20,9 +23,16 @@
 import ArticleCard from "@/components/ArticleCard.vue";
 export default {
   name: "Home",
+  data(){
+    return{
+      loading: false
+    }
+  },
   components: { ArticleCard },
   async created() {
+    this.loading = true
     this.$store.dispatch("articles/getArticles");
+    this.loading = false
   },
   computed: {
     articles() {
