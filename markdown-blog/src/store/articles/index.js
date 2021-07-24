@@ -6,9 +6,14 @@ export default {
   state: {
     articles: [],
   },
+
   getters: {
     allArticles(state) {
       return state.articles;
+    },
+
+    singleArticleBySlug: (state) => (slug) => {
+      return state.articles.find((article) => article.slug === slug);
     },
   },
 

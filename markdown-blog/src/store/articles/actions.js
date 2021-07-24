@@ -1,10 +1,19 @@
 import axios from "axios";
-import router from "../../router";
+import router from "@/router";
 
 export default {
   async getArticles({ commit }) {
     const response = await axios.get(process.env.VUE_APP_API + "/articles");
     commit("getArticles", response.data);
+  },
+
+  async getArticle({ commit }, slug) {
+    const response = await axios.get(
+      process.env.VUE_APP_API + "/articles/" + slug
+    );
+    if (response) {
+      commit("getArticle", response.data);
+    }
   },
 
   async addArticle({ commit }, article) {
@@ -20,6 +29,7 @@ export default {
   },
 
   async editArticle({ commit }, article) {
+    console.log(article);
     const response = await axios.put(
       process.env.VUE_APP_API + "/articles/" + article.id,
       {

@@ -1,51 +1,65 @@
 <template>
   <div class="container">
+
     <teleport to=".router" v-if="loading">
       <loading-spinner />
     </teleport>
+
     <div v-if="!loading">
       <h1>{{ article.title }}</h1>
       <p>{{ article.description }}</p>
-      <div v-html="article.sanitisedHTML" class="blog-content"></div>
+
+      <div v-html="article.sanitisedHTML" class="blog-content" />
+
       <div id="buttons">
+
         <button id="button" v-if="article.isArchived" @click="unarchive">
           Unarchive
         </button>
+
         <router-link
           :to="{
             name: 'EditArticle',
             params: {
-              slug: artSlug,
+              slug: article.slug,
             },
           }"
         >
           <button id="button">Edit</button>
         </router-link>
+
       </div>
     </div>
+
   </div>
 </template>
 
 <script>
-import axios from "axios";
 import router from "@/router";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
 
 export default {
   name: "Article",
+  components: {
+    LoadingSpinner,
+  },
+
   data() {
     return {
-      article: {},
-      artSlug: this.$route.params.slug,
       loading: false,
     };
   },
+  
   async created() {
     this.loading = true;
-    const response = await axios.get(
-      process.env.VUE_APP_API + "/articles/" + this.$route.params.slug
-    );
-    this.article = await response.data;
+    await this.$store.dispatch("editor/getArticle", this.$route.params.slug);
     this.loading = false;
+  },
+
+  computed: {
+    article() {
+      return this.$store.getters["editor/getArticle"];
+    },
   },
 
   methods: {

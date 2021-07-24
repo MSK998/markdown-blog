@@ -2,6 +2,14 @@ export const mutations = {
   getArticles(state, articles) {
     state.articles = articles;
   },
+
+  getArticle(state, article) {
+    if (!state.articles.find((art) => art.id === article.id)) {
+      state.articles.push(article);
+      state.articles = [...state.articles];
+    }
+  },
+
   addArticle(state, article) {
     state.articles.push(article);
     state.articles = [...state.articles];

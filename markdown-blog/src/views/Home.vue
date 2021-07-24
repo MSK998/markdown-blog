@@ -1,8 +1,10 @@
 <template>
   <div class="container">
+
     <teleport to=".router" v-if="loading">
       <loading-spinner />
     </teleport>
+
     <div v-if="!loading">
       <h1><strong>A Basic Blog page</strong></h1>
       <p>This is a basic blog to showcase a full stack application.</p>
@@ -15,14 +17,15 @@
         </router-link>
       </div>
     </div>
+    
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from "@/components/HelloWorld.vue";
 
 import ArticleCard from "@/components/ArticleCard.vue";
+import LoadingSpinner from "@/components/LoadingSpinner.vue"
+
 export default {
   name: "Home",
   data() {
@@ -30,7 +33,7 @@ export default {
       loading: false,
     };
   },
-  components: { ArticleCard },
+  components: { ArticleCard, LoadingSpinner },
   async created() {
     this.loading = true;
     this.$store.dispatch("articles/getArticles");
