@@ -10,6 +10,14 @@ export const mutations = {
     }
   },
 
+  setPage(state, page) {
+    state.currentPage = page
+  },
+
+  setTotalPages(state, total) {
+    state.totalPages = total
+  },
+
   addArticle(state, article) {
     state.articles.push(article);
     state.articles = [...state.articles];
