@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-
     <teleport to=".router" v-if="loading">
       <loading-spinner />
     </teleport>
@@ -11,20 +10,22 @@
       <div v-for="article in articles" :key="article.id">
         <article-card :article="article" />
       </div>
+
+      <pages />
+
       <div id="buttons">
         <router-link to="/archives">
           <button id="button">Archives</button>
         </router-link>
       </div>
     </div>
-    
   </div>
 </template>
 
 <script>
-
 import ArticleCard from "@/components/ArticleCard.vue";
-import LoadingSpinner from "@/components/LoadingSpinner.vue"
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
+import Pages from "@/components/Pages.vue";
 
 export default {
   name: "Home",
@@ -33,7 +34,7 @@ export default {
       loading: false,
     };
   },
-  components: { ArticleCard, LoadingSpinner },
+  components: { ArticleCard, LoadingSpinner, Pages },
   async created() {
     this.loading = true;
     this.$store.dispatch("articles/getArticles");
