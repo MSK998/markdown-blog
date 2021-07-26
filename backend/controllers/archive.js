@@ -1,11 +1,19 @@
 const Article = require("../models/article");
 
 exports.getAllArchivedArticles = async (req, res, next) => {
-  const archivedArticles = await Article.findAll({
+  const page = req.query.page ? parseInt(req.query.page) : 1;
+  const limit = 5;
+  const offset = limit * (page - 1);
+  const { count, rows } = await Article.findAndCountAll({
     where: { isArchived: true },
+    limit: limit,
+    offset: offset,
   });
-  if (archivedArticles.length) {
-    res.status(200).json(archivedArticles);
+  if (count > 0) {
+    res.status(200).json({
+      archives: rows,
+      pages: Math.ceil(count / limit),
+    });
   } else {
     res.status(204).json({
       message: "No Archived Articles Found",
@@ -14,7 +22,9 @@ exports.getAllArchivedArticles = async (req, res, next) => {
 };
 
 exports.getArchivedArticle = async (req, res, next) => {
-  const archivedArticle = await Article.findOne({where: { slug: req.params.slug, isArchived: true}});
+  const archivedArticle = await Article.findOne({
+    where: { slug: req.params.slug, isArchived: true },
+  });
   if (archivedArticle) {
     res.status(200).json(archivedArticle);
   } else {
