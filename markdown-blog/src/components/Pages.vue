@@ -17,13 +17,23 @@ export default {
     return {};
   },
 
+  props: ["archives"],
+
   computed: {
     currentPage() {
-      return this.$store.getters["articles/currentPage"];
+      if (this.archives === "true") {
+        return this.$store.getters["archives/currentPage"];
+      } else {
+        return this.$store.getters["articles/currentPage"];
+      }
     },
 
     totalPages() {
-      return this.$store.getters["articles/totalPages"];
+      if (this.archives === "true") {
+        return this.$store.getters["archives/totalPages"];
+      } else {
+        return this.$store.getters["articles/totalPages"];
+      }
     },
   },
 
@@ -33,11 +43,31 @@ export default {
     },
     previousPage() {
       this.scrollToTop();
-      return this.$store.dispatch("articles/getArticles", this.currentPage - 1);
+      if (this.archives === "true") {
+        return this.$store.dispatch(
+          "archives/getArchives",
+          this.currentPage - 1
+        );
+      } else {
+        return this.$store.dispatch(
+          "articles/getArticles",
+          this.currentPage - 1
+        );
+      }
     },
     nextPage() {
       this.scrollToTop();
-      return this.$store.dispatch("articles/getArticles", this.currentPage + 1);
+      if (this.archives === "true") {
+        return this.$store.dispatch(
+          "archives/getArchives",
+          this.currentPage + 1
+        );
+      } else {
+        return this.$store.dispatch(
+          "articles/getArticles",
+          this.currentPage + 1
+        );
+      }
     },
   },
 };
