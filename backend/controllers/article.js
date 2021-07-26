@@ -1,9 +1,21 @@
 const Article = require("../models/article");
 
 exports.getAllArticles = async (req, res, next) => {
-  const articles = await Article.findAll({ where: { isArchived: false }, order: [['createdAt', 'DESC']] });
-  if (articles.length) {
-    res.status(200).json(articles);
+  const page = req.query.page ? parseInt(req.query.page) : 1;
+  const limit = 3;
+  const offset = limit * (page - 1);
+  const { count, rows } = await Article.findAndCountAll({
+    where: { isArchived: false },
+    order: [["createdAt", "DESC"]],
+    limit: limit,
+    offset: offset,
+  });
+  // console.log(rows, count);
+  if (count > 0) {
+    res.status(200).json({
+      articles: rows,
+      rows: Math.ceil(count/limit),
+    });
   } else {
     res.status(404).json({
       message: "No Articles Found",
