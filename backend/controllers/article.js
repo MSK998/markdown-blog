@@ -2,7 +2,7 @@ const Article = require("../models/article");
 
 exports.getAllArticles = async (req, res, next) => {
   const page = req.query.page ? parseInt(req.query.page) : 1;
-  const limit = 3;
+  const limit = 5;
   const offset = limit * (page - 1);
   const { count, rows } = await Article.findAndCountAll({
     where: { isArchived: false },
@@ -10,11 +10,10 @@ exports.getAllArticles = async (req, res, next) => {
     limit: limit,
     offset: offset,
   });
-  // console.log(rows, count);
   if (count > 0) {
     res.status(200).json({
       articles: rows,
-      rows: Math.ceil(count/limit),
+      pages: Math.ceil(count / limit),
     });
   } else {
     res.status(404).json({
