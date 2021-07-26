@@ -10,17 +10,9 @@ export default {
       },
     });
 
-    console.log(response.data);
     commit("setPage", page)
-    commit("setTotalPages", response.data.rows)
+    commit("setTotalPages", response.data.pages)
     commit("getArticles", response.data.articles);
-  },
-
-  async nextPage({ commit, state }) {
-    const response = await axios.get(process.env.VUE_APP_API + "/articles", {
-      page: parseInt(state.currentPage) + 1,
-    });
-    commit("nextPage", response.data);
   },
 
   async getArticle({ commit }, slug) {

@@ -12,6 +12,8 @@
       <div v-for="article in archives" :key="article.id">
         <article-card :article="article" />
       </div>
+
+      <pages archives="true"/>
     </div>
   </div>
 </template>
@@ -19,10 +21,11 @@
 <script>
 import ArticleCard from "@/components/ArticleCard.vue";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import Pages from "@/components/Pages.vue"
 
 export default {
   name: "Home",
-  components: { ArticleCard, LoadingSpinner },
+  components: { ArticleCard, LoadingSpinner, Pages },
   data() {
     return {
       loading: false,
