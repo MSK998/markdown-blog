@@ -42,7 +42,14 @@ Article.beforeValidate(async (article, options) => {
     article.slug = await slugify(article.title, { lower: true, strict: true });
   }
   if (article.markdown) {
-    article.sanitisedHTML = await sanitizeHtml(marked(article.markdown));
+    article.sanitisedHTML = await sanitizeHtml(marked(article.markdown), {
+      allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+      allowedAttributes: {
+        img: ["src"],
+      },
+      disallowedTagsMode: "escape",
+      selfClosing: ["img"],
+    });
   }
 });
 
@@ -63,7 +70,14 @@ Article.beforeUpdate(async (article, options) => {
     "isArchived",
   ];
   if (article.markdown) {
-    article.sanitisedHTML = await sanitizeHtml(marked(article.markdown));
+    article.sanitisedHTML = await sanitizeHtml(marked(article.markdown), {
+      allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+      allowedAttributes: {
+        img: ["src"],
+      },
+      disallowedTagsMode: "escape",
+      selfClosing: ["img"],
+    });
   }
   if (article.title) {
     article.slug = await slugify(article.title, { lower: true, strict: true });

@@ -1,8 +1,9 @@
 const app = require("./app");
+const fs = require("fs");
 const debug = require("debug");
 const http = require("http");
 
-const normalizePort = val => {
+const normalizePort = (val) => {
   var port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -18,7 +19,7 @@ const normalizePort = val => {
   return false;
 };
 
-const onError = error => {
+const onError = (error) => {
   if (error.syscall !== "listen") {
     throw error;
   }
@@ -36,6 +37,17 @@ const onError = error => {
       throw error;
   }
 };
+
+if (!fs.existsSync("./public")) {
+  fs.mkdir("./public", (err) => {
+    if (err) console.log(err);
+    else {
+      fs.chmod("./public", 0777, (err) => {
+        if (err) console.log(err);
+      });
+    }
+  });
+}
 
 const onListening = () => {
   const addr = server.address();
