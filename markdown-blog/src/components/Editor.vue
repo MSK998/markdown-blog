@@ -23,17 +23,23 @@
       @input="update"
       v-model="article.markdown"
     ></textarea>
-    <button class="button-primary u-pull-right" @click="saveArticle">
-      Save
-    </button>
+    <span>
+      <file-upload @up="updateText" />
+
+      <button class="button-primary u-pull-right" @click="saveArticle">
+        Save
+      </button>
+    </span>
   </div>
 </template>
 <script>
 import lo from "lodash";
 import marked from "marked";
+import FileUpload from "@/components/FileUpload.vue";
 // import axios from "axios";
 
 export default {
+  components: { FileUpload },
   props: ["editing"],
   data() {
     return {
@@ -69,6 +75,10 @@ export default {
       this.$store.dispatch("editor/setMarkdown", this.article.markdown);
     }, 300),
 
+    updateText() {
+      this.article.markdown = this.$store.getters["editor/getMarkdown"];
+    },
+
     saveArticle() {
       if (this.editing === "true") {
         this.$store.dispatch("articles/editArticle", {
@@ -88,13 +98,16 @@ export default {
   },
   computed: {
     html() {
-      return marked(this.article.markdown);
+      return marked(this.$store.getters["editor/getMarkdown"]);
     },
     titleChar() {
       return 60 - this.article.title.length;
     },
     descriptionChar() {
-      return 200 - this.article.description.length;
+      if (this.article.description) {
+        return 200 - this.article.description.length;
+      }
+      return 200;
     },
   },
 };

@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-
     <teleport to=".router" v-if="loading">
       <loading-spinner />
     </teleport>
@@ -9,10 +8,9 @@
       <h1>{{ article.title }}</h1>
       <p>{{ article.description }}</p>
 
-      <div v-html="article.sanitisedHTML" class="blog-content" />
+      <article-preview :html="article.sanitisedHTML" />
 
       <div id="buttons">
-
         <button id="button" v-if="article.isArchived" @click="unarchive">
           Unarchive
         </button>
@@ -27,21 +25,21 @@
         >
           <button id="button">Edit</button>
         </router-link>
-
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
 import router from "@/router";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
+import ArticlePreview from "@/components/ArticlePreview.vue"
 
 export default {
   name: "Article",
   components: {
     LoadingSpinner,
+    ArticlePreview,
   },
 
   data() {
@@ -49,7 +47,7 @@ export default {
       loading: false,
     };
   },
-  
+
   async created() {
     this.loading = true;
     await this.$store.dispatch("editor/getArticle", this.$route.params.slug);

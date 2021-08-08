@@ -3,10 +3,12 @@
     <teleport to=".router" v-if="loading">
       <loading-spinner />
     </teleport>
-
+    <h1>Edit Article</h1>
     <div v-if="!loading">
       <editor editing="true" />
     </div>
+    <label for="preview">Preview</label>
+
     <article-preview :html="html" />
   </div>
 </template>
@@ -34,7 +36,7 @@ export default {
   computed: {
     html() {
       return marked(this.$store.getters["editor/getMarkdown"]);
-    }
+    },
   },
 };
 </script>

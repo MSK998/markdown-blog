@@ -37,7 +37,6 @@ export default {
   },
 
   async editArticle({ commit }, article) {
-    console.log(article);
     const response = await axios.put(
       process.env.VUE_APP_API + "/articles/" + article.id,
       {

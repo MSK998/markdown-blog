@@ -11,5 +11,9 @@ export default {
 
   async setMarkdown({commit}, markdown){
       commit("setMarkdown", markdown)
+  },
+
+  async appendMarkdown({commit}, md){
+    commit("appendMarkdown", md)
   }
 };
