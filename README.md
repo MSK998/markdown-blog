@@ -5,16 +5,27 @@ This mini project was completed over a weekend. Inspired by a project that I cam
 
 # Getting started with this project
 
+## Prerequisites
+
+Install NGINX and PostgreSQL `sudo apt install nginx postgres`
+
+## Steps
+
 1. Start by making sure that you have PostgreSQL installed on your machine.
 2. Make sure that a user and database has been created with the following credentials
     - username: `markdown`
     - password: `sdvgvgF0ahpYsYaZSk`
     - database: `markdown_blog`
-3. While in the backend directory, run `npm install`
+3. Copy the markdown-blog.conf file into your `/etc/nginx/sites-available`
+4. Add a link to the `sites-enabled`
+    - `sudo ln -s /etc/nginx/sites-available/markdown-blog.conf  /etc/nginx/sites-enabled/markdown-blog.conf`
+    - Copy the contents of the dist folder into `/var/www/markdown-blog`
+    - NOTE: NGINX config set up is only really for testing out what could maybe be used in production
+7. While in the backend directory, run `npm install`
     - Start the backend server with `npx nodemon` while in the backend directory
-4. While in the markdown-blog directory which is the frontend files, run `npm install`
+8. While in the markdown-blog directory which is the frontend files, run `npm install`
     - Start the vue dev server with `npm run serve`
-5. Navigate to http://localhost:8080/ to view the webpage
+9. Navigate to http://localhost:8080/ to view the webpage
 
 # Todos for future
 
