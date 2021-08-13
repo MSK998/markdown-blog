@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyparser = require("body-parser");
-const path = require("path")
 const articleRoute = require("./routes/article");
 const archiveRoute = require("./routes/archive");
 const imageRoute = require("./routes/image");
@@ -25,8 +24,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/", articleRoute);
-app.use("/archive", archiveRoute);
-app.use("/images", imageRoute);
-app.use(express.static('public'))
+app.use("/api/", articleRoute);
+app.use("/api/archive", archiveRoute);
+app.use("/api/images", imageRoute);
+//app.use(express.static('public'))
 module.exports = app;
